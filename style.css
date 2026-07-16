@@ -460,3 +460,37 @@ footer p {
         font-size: 3rem;
     }
 }
+/* =========================================
+   MOBILE RESPONSIVE LAYOUT (Max Width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  /* 1. Reset Body & Container */
+  body {
+    padding: 10px;
+    overflow-x: hidden; /* Mencegah layar bisa digeser ke kanan-kiri */
+  }
+
+  /* 2. Ubah Flexbox Horizontal menjadi Vertikal */
+  .container, .navbar, .form-group, .row {
+    flex-direction: column !important;
+    width: 100%;
+  }
+
+  /* 3. Optimalisasi Tabel (Scrollable) */
+  table, .table-container {
+    display: block;
+    width: 100%;
+    overflow-x: auto; /* Mengaktifkan scroll horizontal hanya pada tabel */
+    -webkit-overflow-scrolling: touch; /* Scroll mulus di iOS */
+    white-space: nowrap; /* Mencegah teks tabel turun ke baris baru secara paksa */
+  }
+
+  /* 4. Aksesibilitas Tombol & Input */
+  button, .btn-nav, input, select {
+    width: 100% !important; /* Tombol dan form membentang penuh */
+    padding: 12px 15px; /* Memperbesar area sentuh */
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+}
+
