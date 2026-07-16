@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator HPP & Margin | UMKM</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-primary)"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                        </svg>
+                        <h1>KALKUMENU</h1>
+                    </a>
+                </div>
+
+                <nav class="top-nav">
+                    <a href="index.html" class="nav-link">Bahan Baku</a>
+                    <a href="resep.html" class="nav-link">Resep Digital</a>
+                    <a href="kalkulator.html" class="nav-link active">Kalkulator HPP</a>
+                </nav>
+
+                <div class="status-indicator">
+                    <span id="connection-status" class="status-dot"></span>
+                    <span id="connection-text">Memeriksa koneksi...</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <!-- Alert Banner -->
+            <div id="alert-banner" class="alert-banner hidden">
+                <p id="alert-message"></p>
+                <button id="close-alert" class="icon-btn">&times;</button>
+            </div>
+
+            <div class="grid-layout">
+                <!-- Panel Kiri: Input & Kontrol -->
+                <section class="panel panel-left">
+                    <div class="panel-header">
+                        <h2>Pengaturan Kalkulator</h2>
+                        <p class="subtitle">Pilih menu dan tentukan margin untuk simulasi HPP.</p>
+                    </div>
+
+                    <form id="calc-form" class="material-form">
+                        <div class="form-group">
+                            <label for="select-menu">Pilih Menu</label>
+                            <select id="select-menu" name="select-menu" required>
+                                <option value="" disabled selected>Memuat menu...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="input-margin">Target Margin Keuntungan (%)</label>
+                            <div class="input-with-prefix">
+                                <span class="prefix">%</span>
+                                <input type="number" id="input-margin" name="input-margin" placeholder="0" min="0"
+                                    max="1000" step="1" value="0">
+                            </div>
+                            <p class="subtitle" style="font-size: 0.8rem; margin-top: 0.25rem;">Isi dengan angka,
+                                misalnya 50 untuk profit 50%.</p>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Panel Kanan: Ringkasan Finansial (Dashboard) -->
+                <section class="panel panel-right">
+                    <div class="panel-header">
+                        <h2>Ringkasan Finansial</h2>
+                        <p class="subtitle">Kalkulasi HPP berdasarkan resep aktif.</p>
+                    </div>
+
+                    <div class="dashboard-cards">
+
+                        <!-- Rincian Modal -->
+                        <div class="financial-card detail-card">
+                            <h3 class="card-title">Rincian Modal Bahan Baku</h3>
+                            <div class="table-container" style="max-height: 250px; overflow-y: auto;">
+                                <table class="data-table" id="hpp-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Bahan</th>
+                                            <th>Takaran</th>
+                                            <th class="text-right">Biaya</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="hpp-table-body">
+                                        <tr class="empty-state">
+                                            <td colspan="3" class="text-center">Silakan pilih menu di samping.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Summary Values -->
+                        <div class="summary-cards-row">
+                            <div class="financial-card highlight-box">
+                                <h3 class="card-title">Total HPP</h3>
+                                <div class="price-value" id="total-hpp-val">Rp 0</div>
+                                <p class="small-text">Biaya pokok untuk 1 porsi</p>
+                            </div>
+
+                            <div class="financial-card success-box">
+                                <h3 class="card-title">Saran Harga Jual</h3>
+                                <div class="price-value highlight" id="saran-harga-val">Rp 0</div>
+                                <p class="small-text">Setelah margin <span id="margin-display-val">0</span>%</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- App Logic -->
+    <script type="module" src="kalkulator.js"></script>
+</body>
+
+</html>

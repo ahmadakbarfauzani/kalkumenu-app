@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk / Daftar - KALKUMENU</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-page-container">
+        <!-- Logo -->
+        <div class="auth-logo">
+            <a href="/index.html" aria-label="Kembali ke Beranda">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--text-primary)" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                </svg>
+                <h1>KALKUMENU</h1>
+            </a>
+        </div>
+
+        <div class="auth-card">
+            <!-- Global Message Box -->
+            <div id="auth-message" class="auth-message hidden" role="alert" aria-live="assertive"></div>
+
+            <!-- LOGIN FORM -->
+            <div id="login-section" class="auth-section active">
+                <h2>Selamat Datang Kembali</h2>
+                <p class="auth-subtitle">Masuk untuk melanjutkan ke dashboard Anda.</p>
+                
+                <form id="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" placeholder="nama@domain.com" required>
+                        <span class="error-msg" id="error-login-email">Format email tidak valid.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="login-password" name="password" placeholder="Masukkan password Anda" required>
+                            <button type="button" class="toggle-password" aria-label="Tampilkan Password" data-target="login-password">
+                                <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="icon-eye-off hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
+                        <span class="error-msg" id="error-login-password">Password wajib diisi.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-login">
+                        <span class="btn-text">Masuk</span>
+                        <span class="spinner hidden"></span>
+                    </button>
+                </form>
+
+                <div class="auth-switch">
+                    <p>Belum punya akun? <a href="#" id="link-to-register">Daftar di sini</a></p>
+                </div>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div id="register-section" class="auth-section hidden">
+                <h2>Buat Akun Baru</h2>
+                <p class="auth-subtitle">Mulai hitung HPP dengan presisi.</p>
+                
+                <form id="register-form" novalidate>
+                    <div class="form-group">
+                        <label for="register-name">Nama Lengkap</label>
+                        <input type="text" id="register-name" name="name" placeholder="Nama Anda" required minlength="2">
+                        <span class="error-msg" id="error-register-name">Nama lengkap wajib diisi.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" placeholder="nama@domain.com" required>
+                        <span class="error-msg" id="error-register-email">Format email tidak valid.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="register-password" name="password" placeholder="Minimal 6 karakter" required minlength="6">
+                            <button type="button" class="toggle-password" aria-label="Tampilkan Password" data-target="register-password">
+                                <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="icon-eye-off hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
+                        <span class="error-msg" id="error-register-password">Password minimal 6 karakter.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm-password">Konfirmasi Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Ulangi password" required>
+                            <button type="button" class="toggle-password" aria-label="Tampilkan Password" data-target="register-confirm-password">
+                                <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="icon-eye-off hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
+                        <span class="error-msg" id="error-register-confirm-password">Password tidak cocok.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-register">
+                        <span class="btn-text">Daftar</span>
+                        <span class="spinner hidden"></span>
+                    </button>
+                </form>
+
+                <div class="auth-switch">
+                    <p>Sudah punya akun? <a href="#" id="link-to-login">Masuk di sini</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Logic -->
+    <script type="module" src="auth.js"></script>
+</body>
+</html>

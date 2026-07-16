@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resep Digital | UMKM</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-primary)"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                        </svg>
+                        <h1>KALKUMENU</h1>
+                    </a>
+                </div>
+
+                <nav class="top-nav">
+                    <a href="index.html" class="nav-link">Bahan Baku</a>
+                    <a href="resep.html" class="nav-link active">Resep Digital</a>
+                    <a href="kalkulator.html" class="nav-link">Kalkulator HPP</a>
+                </nav>
+
+                <div class="status-indicator">
+                    <span id="connection-status" class="status-dot"></span>
+                    <span id="connection-text">Memeriksa koneksi...</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <!-- Alert Banner -->
+            <div id="alert-banner" class="alert-banner hidden">
+                <p id="alert-message"></p>
+                <button id="close-alert" class="icon-btn">&times;</button>
+            </div>
+
+            <div class="grid-layout">
+                <!-- Panel Kiri: Form Builder -->
+                <section class="panel panel-left">
+                    <div class="panel-header">
+                        <h2>Menu Builder</h2>
+                        <p class="subtitle">Buat menu dan racik resep presisi Anda.</p>
+                    </div>
+
+                    <form id="recipe-form" class="material-form" novalidate>
+                        <div class="form-group">
+                            <label for="nama_menu">Nama Menu</label>
+                            <input type="text" id="nama_menu" name="nama_menu" placeholder="Contoh: Es Kopi Susu Senja"
+                                required minlength="3">
+                            <span class="error-msg" id="error-nama-menu">Nama menu minimal 3 karakter.</span>
+                        </div>
+
+                        <div class="recipe-ingredients-section">
+                            <div class="section-header-row">
+                                <label>Daftar Bahan Baku</label>
+                                <button type="button" id="add-ingredient-btn" class="btn btn-outline btn-sm">
+                                    + Bahan
+                                </button>
+                            </div>
+
+                            <div id="ingredients-container" class="ingredients-container">
+                                <!-- Dynamic rows will be injected here -->
+                                <div class="empty-ingredients-msg text-muted" id="empty-ingredients-msg">
+                                    Belum ada bahan ditambahkan. Klik tombol di atas untuk meracik.
+                                </div>
+                            </div>
+                            <span class="error-msg" id="error-ingredients">Tambahkan minimal 1 bahan baku untuk resep
+                                ini.</span>
+                        </div>
+
+                        <button type="submit" id="submit-recipe-btn" class="btn btn-primary"
+                            style="margin-top: 1.5rem;">
+                            <span class="btn-text">Simpan Resep</span>
+                            <span class="spinner hidden" id="submit-spinner"></span>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Panel Kanan: Daftar Menu -->
+                <section class="panel panel-right">
+                    <div class="panel-header">
+                        <div class="header-with-actions">
+                            <h2>Daftar Menu</h2>
+                            <button id="refresh-menu-btn" class="icon-btn" title="Refresh Data">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <polyline points="1 20 1 14 7 14"></polyline>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="menu-list-container" id="menu-list-container">
+                        <!-- Menu Cards will be injected here -->
+                        <div class="loading-state text-center" id="menu-loading">
+                            <div class="spinner-large"></div>
+                            <p>Memuat daftar menu...</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- App Logic -->
+    <script type="module" src="resep.js"></script>
+</body>
+
+</html>

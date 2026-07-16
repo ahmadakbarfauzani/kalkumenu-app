@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Bahan Baku | UMKM</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--text-primary)"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                        </svg>
+                        <h1>KALKUMENU</h1>
+                    </a>
+                </div>
+
+                <nav class="top-nav">
+                    <a href="index.html" class="nav-link active">Bahan Baku</a>
+                    <a href="resep.html" class="nav-link">Resep Digital</a>
+                    <a href="kalkulator.html" class="nav-link">Kalkulator HPP</a>
+                </nav>
+
+                <div class="status-indicator">
+                    <span id="connection-status" class="status-dot"></span>
+                    <span id="connection-text">Memeriksa koneksi...</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <!-- Alert Banner -->
+            <div id="alert-banner" class="alert-banner hidden">
+                <p id="alert-message"></p>
+                <button id="close-alert" class="icon-btn">&times;</button>
+            </div>
+
+            <div class="grid-layout">
+                <!-- Panel Kiri: Form Input -->
+                <section class="panel panel-left">
+                    <div class="panel-header">
+                        <h2>Tambah Bahan Baku</h2>
+                        <p class="subtitle">Masukkan data stok modal mentah baru.</p>
+                    </div>
+
+                    <form id="material-form" class="material-form" novalidate>
+                        <div class="form-group">
+                            <label for="nama_bahan">Nama Bahan</label>
+                            <input type="text" id="nama_bahan" name="nama_bahan" placeholder="Masukan bahan" required
+                                minlength="3">
+                            <span class="error-msg" id="error-nama">Nama bahan minimal 3 karakter.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="harga_beli_total">Harga Beli Total (Rp)</label>
+                            <div class="input-with-prefix">
+                                <span class="prefix">Rp</span>
+                                <input type="number" id="harga_beli_total" name="harga_beli_total" placeholder="0"
+                                    required min="1" step="1">
+                            </div>
+                            <span class="error-msg" id="error-harga">Harga harus lebih besar dari 0.</span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="kuantitas_total">Jumlah (Kuantitas)</label>
+                                <input type="number" id="kuantitas_total" name="kuantitas_total" placeholder="0"
+                                    required min="0.01" step="0.01">
+                                <span class="error-msg" id="error-kuantitas">Kuantitas tidak boleh kosong/0.</span>
+                            </div>
+
+                            <div class="form-group half">
+                                <label for="satuan">Satuan Ukuran</label>
+                                <select id="satuan" name="satuan" required>
+                                    <option value="" disabled selected>Pilih satuan</option>
+                                    <option value="kg">Kilogram (kg)</option>
+                                    <option value="g">Gram (g)</option>
+                                    <option value="l">Liter (L)</option>
+                                    <option value="ml">Mililiter (ml)</option>
+                                    <option value="pcs">Pcs</option>
+                                    <option value="pack">Pack</option>
+                                </select>
+                                <span class="error-msg" id="error-satuan">Silakan pilih satuan ukuran.</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-time calculation preview -->
+                        <div class="calculation-preview">
+                            <div class="calc-label">Estimasi Harga per Satuan</div>
+                            <div class="calc-value" id="calc-preview">Rp 0 / -</div>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="btn btn-primary">
+                            <span class="btn-text">Simpan Bahan Baku</span>
+                            <span class="spinner hidden" id="submit-spinner"></span>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Panel Kanan: Tabel Data -->
+                <section class="panel panel-right">
+                    <div class="panel-header">
+                        <div class="header-with-actions">
+                            <h2>Daftar Bahan Baku</h2>
+                            <button id="refresh-btn" class="icon-btn" title="Refresh Data">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <polyline points="1 20 1 14 7 14"></polyline>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Bahan</th>
+                                    <th>Harga Total</th>
+                                    <th>Kuantitas</th>
+                                    <th class="highlight-col">Harga / Satuan</th>
+                                    <th class="action-col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Data rows will be injected here -->
+                                <tr id="loading-row">
+                                    <td colspan="5" class="text-center loading-state">
+                                        <div class="spinner-large"></div>
+                                        <p>Memuat data database...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- App Logic -->
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
